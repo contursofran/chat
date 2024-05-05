@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
+    "@types/sockjs-client": "^1.5.4",
+    "@types/stompjs": "^2.3.9",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.368.0",
@@ -17,6 +19,8 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7"
   },
