@@ -26,12 +26,20 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className="m-8 h-full flex-1">
+    <div className="m-8 flex-1">
       <div className="flex flex-col gap-4 mt-8 mx-28">
         <input type="text" className="border border-gray-300 p-2" />
         <Button
           onClick={() =>
-            client?.send("/app/message", {}, JSON.stringify("test"))
+            client?.send(
+              "/app/message",
+              {},
+              JSON.stringify({
+                content: "Hello",
+                sender: "client",
+                date: new Date().toISOString(),
+              })
+            )
           }
         >
           Send

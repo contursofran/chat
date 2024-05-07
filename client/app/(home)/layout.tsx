@@ -7,11 +7,8 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="font-medium min-h-screen">
-      <div className="flex justify-end">
-        <User />
-      </div>
+    <main className="font-medium p-8 flex flex-1 max-h-[calc(100vh-3.5rem)] bg-neutral-950">
       {children}
-    </div>
+    </main>
   );
 }
