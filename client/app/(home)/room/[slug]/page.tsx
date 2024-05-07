@@ -12,9 +12,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         <div className="justify-left w-full flex items-center">
           {/* <h1 className="text-lg font-medium ">Room {params.slug}</h1> */}
         </div>
-        <div className="z-10 border rounded-lg max-w-5xl  w-full h-full text-sm lg:flex">
-          <Chat />
-        </div>
+        <Chat />
       </div>
     </div>
   );

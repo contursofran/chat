@@ -9,11 +9,11 @@ export function BackButton() {
   const path = usePathname();
 
   if (path === "/") {
-    return null;
+    return <div className="w-16" />;
   }
 
   return (
-    <div className="mx-8 flex h-fit w-24 shrink-0 ">
+    <div className="flex h-fit w-16 shrink-0 ">
       <Link
         className="flex h-fit items-center justify-center gap-1 text-muted-foreground hover:text-foreground"
         href={"/"}

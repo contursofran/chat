@@ -1,6 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Forward } from "lucide-react";
 import { useEffect, useState } from "react";
 import SockJS from "sockjs-client";
 import { Client, over } from "stompjs";
@@ -26,10 +28,9 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className="m-8 flex-1">
+    <div className="flex flex-col justify-between flex-1">
       <div className="flex flex-col gap-4 mt-8 mx-28">
-        <input type="text" className="border border-gray-300 p-2" />
-        <Button
+        {/* <Button
           onClick={() =>
             client?.send(
               "/app/message",
@@ -43,7 +44,14 @@ export default function Chat() {
           }
         >
           Send
-        </Button>
+        </Button> */}
+      </div>
+      <div className="w-full gap-3 bg-black relative flex items-center rounded-full h-10">
+        <Textarea
+          className="w-full rounded-full pl-4 pr-10 h-full placeholder-neutral-800 overflow-hidden resize-none"
+          placeholder="Send a message..."
+        />
+        <Forward className="absolute  right-3 h-5" />
       </div>
     </div>
   );
