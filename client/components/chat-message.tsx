@@ -1,6 +1,7 @@
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { cn, formatTime, uppercaseFirstLetter } from "@/lib/utils";
 import { Message } from "@/types";
+import { User } from "lucide-react";
 
 interface ChatMessageProps {
   message: Message;
@@ -23,15 +24,19 @@ export function ChatMessage({ message, side }: ChatMessageProps) {
         </span>
       </div>
       <Avatar>
-        <AvatarImage alt="Avatar" src="/placeholder-avatar.jpg" />
-        <AvatarFallback>JD</AvatarFallback>
+        <AvatarImage alt="Avatar" />
+        <AvatarFallback>
+          {uppercaseFirstLetter(message.user.split("")[0])}
+        </AvatarFallback>
       </Avatar>
     </div>
   ) : (
     <div className={"flex space-x-3 "}>
       <Avatar>
-        <AvatarImage alt="Avatar" src="/placeholder-avatar.jpg" />
-        <AvatarFallback>JD</AvatarFallback>
+        <AvatarImage alt="Avatar" />
+        <AvatarFallback>
+          {uppercaseFirstLetter(message.user.split("")[0])}
+        </AvatarFallback>
       </Avatar>
       <div className="flex flex-col gap-2">
         <div className="relative w-fit max-w-[290px] break-words gap-[0.15rem] flex flex-col rounded-lg border  bg-white p-3 shadow-sm dark:bg-black">

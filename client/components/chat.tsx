@@ -1,6 +1,7 @@
 "use client";
 
 import { ChatMessage } from "@/components/chat-message";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { useUserStore } from "@/store/store";
 import { Message } from "@/types";
@@ -8,7 +9,6 @@ import { Forward } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { Client, over } from "stompjs";
-import { useStore } from "zustand";
 
 const messagesExample: Message[] = [
   {
@@ -18,7 +18,20 @@ const messagesExample: Message[] = [
     user: "client2",
   },
   {
-    content: "Hello, how can I help you?",
+    content:
+      "Hello, how can I aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahelp you?",
+    timestamp: new Date().toISOString(),
+    user: "client2",
+  },
+  {
+    content:
+      "Hello, how can I aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahelp you?",
+    timestamp: new Date().toISOString(),
+    user: "client2",
+  },
+  {
+    content:
+      "Hello, how caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaan I help you?",
     timestamp: new Date().toISOString(),
     user: "client",
   },
@@ -97,15 +110,17 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col justify-end flex-1 w-full max-w-screen-sm">
-      <div className="mb-6 flex flex-col gap-6">
-        {messages.map((message, index) => (
-          <ChatMessage
-            key={index}
-            message={message}
-            side={currentUser === message.user ? "right" : "left"}
-          />
-        ))}
-      </div>
+      <ScrollArea className="w-full h-[calc(100vh-2.5rem-3.5rem-4rem)] px-5">
+        <div className="mb-9 flex flex-col gap-6">
+          {messages.map((message, index) => (
+            <ChatMessage
+              key={index}
+              message={message}
+              side={currentUser === message.user ? "right" : "left"}
+            />
+          ))}
+        </div>
+      </ScrollArea>
       <div className="w-full gap-3 bg-black relative flex items-center rounded-full h-10">
         <Textarea
           value={message}
