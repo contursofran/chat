@@ -1,10 +1,5 @@
-export interface UserData {
-  name: string;
-  avatar: string;
-}
-
 export interface Message {
-  user: UserData;
+  user: string;
   content: string;
   timestamp: string;
 }
