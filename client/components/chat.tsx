@@ -1,28 +1,57 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { ChatMessage } from "@/components/chat-message";
 import { Textarea } from "@/components/ui/textarea";
+import { useUserStore } from "@/store/store";
 import { Message } from "@/types";
 import { Forward } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { Client, over } from "stompjs";
+import { useStore } from "zustand";
+
+const messagesExample: Message[] = [
+  {
+    content:
+      "Hello, how can I aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahelp you?",
+    timestamp: new Date().toISOString(),
+    user: "client2",
+  },
+  {
+    content: "Hello, how can I help you?",
+    timestamp: new Date().toISOString(),
+    user: "client",
+  },
+  {
+    content: "Hello, how can I help you?",
+    timestamp: new Date().toISOString(),
+    user: "client2",
+  },
+];
 
 export default function Chat() {
+  const currentUser = useUserStore((state) => state.user);
   const [message, setMessage] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [client, setClient] = useState<Client>();
+  const [messages, setMessages] = useState<Message[]>(messagesExample);
 
-  useEffect(() => {
-    const s = new SockJS("http://localhost:8080/ws");
-    const client = over(s);
+  // useEffect(() => {
+  //   const s = new SockJS("http://localhost:8080/ws");
+  //   const client = over(s);
 
-    setClient(client);
+  //   setClient(client);
 
-    client.connect({}, () => {
-      client.subscribe("/chatroom/public");
-    });
-  }, []);
+  //   client.connect({}, () => {
+  //     client.subscribe("/chatroom/public", (message) => {
+  //       handleSubscription(JSON.parse(message.body));
+  //     });
+  //   });
+  // }, []);
+
+  const handleSubscription = (message: Message) => {
+    setMessages((prev) => [...prev, message]);
+  };
 
   const handleSend = () => {
     if (message.trim()) {
@@ -67,23 +96,15 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex flex-col justify-between flex-1">
-      <div className="flex flex-col gap-4 mt-8 mx-28">
-        {/* <Button
-          onClick={() =>
-            client?.send(
-              "/app/message",
-              {},
-              JSON.stringify({
-                content: "Hello",
-                sender: "client",
-                date: new Date().toISOString(),
-              })
-            )
-          }
-        >
-          Send
-        </Button> */}
+    <div className="flex flex-col justify-end flex-1 w-full max-w-screen-sm">
+      <div className="mb-6 flex flex-col gap-6">
+        {messages.map((message, index) => (
+          <ChatMessage
+            key={index}
+            message={message}
+            side={currentUser === message.user ? "right" : "left"}
+          />
+        ))}
       </div>
       <div className="w-full gap-3 bg-black relative flex items-center rounded-full h-10">
         <Textarea
