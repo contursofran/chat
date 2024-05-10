@@ -13,7 +13,7 @@ export function BackButton() {
   }
 
   return (
-    <div className="flex h-fit w-16 shrink-0 ">
+    <div className="flex mx-8 h-fit w-16 shrink-0 ">
       <Link
         className="flex h-fit items-center justify-center gap-1 text-muted-foreground hover:text-foreground"
         href={"/"}

@@ -1,7 +1,6 @@
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
-import { cn, formatTime, uppercaseFirstLetter } from "@/lib/utils";
+import { formatTime, uppercaseFirstLetter } from "@/lib/utils";
 import { Message } from "@/types";
-import { User } from "lucide-react";
 
 interface ChatMessageProps {
   message: Message;
@@ -9,7 +8,6 @@ interface ChatMessageProps {
 }
 
 export function ChatMessage({ message, side }: ChatMessageProps) {
-  console.log(side);
   return side === "right" ? (
     <div className={"flex space-x-3 justify-end"}>
       <div className="flex flex-col gap-2 items-end">

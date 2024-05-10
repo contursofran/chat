@@ -1,13 +1,9 @@
-import { RoomCard } from "@/components/room-card";
+import { EnterCard } from "@/components/enter-card";
 
-export default function Home() {
+export default function EnterPage() {
   return (
-    <div className="flex flex-1 flex-col h-full ">
-      <div className="flex flex-wrap mx-auto flex-1 gap-4 mt-3">
-        <RoomCard roomNumber={1} connectionString={"1"} />
-        <RoomCard roomNumber={2} connectionString={"2"} />
-        <RoomCard roomNumber={3} connectionString={"3"} />
-      </div>
+    <div className="flex flex-1 items-center justify-center">
+      <EnterCard />
     </div>
   );
 }
