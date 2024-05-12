@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 
 export function BackButton() {
@@ -13,10 +12,10 @@ export function BackButton() {
   }
 
   return (
-    <div className="flex mx-8 h-fit w-16 shrink-0 ">
+    <div className="flex h-fit w-16 shrink-0 ">
       <Link
         className="flex h-fit items-center justify-center gap-1 text-muted-foreground hover:text-foreground"
-        href={"/"}
+        href={"/room"}
       >
         <div className="flex items-center text-gray-200">
           <ChevronLeft className="mr-1 flex h-4 w-4" />
