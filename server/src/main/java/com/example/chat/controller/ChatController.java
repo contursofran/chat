@@ -12,7 +12,7 @@ public class ChatController {
 
     @MessageMapping("/message")
     @SendTo("/chatroom/public")
-    public Message ChatController(@Payload Message message) {
+    public Message handleMessage(@Payload Message message) {
         return message;
     }
 
