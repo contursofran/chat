@@ -10,78 +10,38 @@ import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { Client, over } from "stompjs";
 
-const messagesExample: Message[] = [
-  {
-    content:
-      "Hello, how can I aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahelp you?",
-    timestamp: new Date().toISOString(),
-    user: "client2",
-  },
-  {
-    content:
-      "Hello, how can I aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahelp you?",
-    timestamp: new Date().toISOString(),
-    user: "client2",
-  },
-  {
-    content:
-      "Hello, how can I aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahelp you?",
-    timestamp: new Date().toISOString(),
-    user: "client2",
-  },
-  {
-    content:
-      "Hello, how caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaan I help you?",
-    timestamp: new Date().toISOString(),
-    user: "client",
-  },
-  {
-    content: "Hello, how can I help you?",
-    timestamp: new Date().toISOString(),
-    user: "client2",
-  },
-];
-
 export default function Chat() {
   const currentUser = useUserStore((state) => state.user);
   const [message, setMessage] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [client, setClient] = useState<Client>();
-  const [messages, setMessages] = useState<Message[]>(messagesExample);
+  const [messages, setMessages] = useState<Message[]>([]);
 
-  // useEffect(() => {
-  //   const s = new SockJS("http://localhost:8080/ws");
-  //   const client = over(s);
+  useEffect(() => {
+    const s = new SockJS("http://localhost:8080/ws");
+    const client = over(s);
 
-  //   setClient(client);
+    setClient(client);
 
-  //   client.connect({}, () => {
-  //     client.subscribe("/chatroom/public", (message) => {
-  //       handleSubscription(JSON.parse(message.body));
-  //     });
-  //   });
-  // }, []);
+    client.connect({}, () => {
+      client.subscribe("/chatroom/public", (IncommingMessage) => {
+        handleSubscription(JSON.parse(IncommingMessage.body));
+      });
+    });
+  }, []);
 
-  const handleSubscription = (message: Message) => {
-    setMessages((prev) => [...prev, message]);
+  const handleSubscription = (IncommingMessage: Message) => {
+    setMessages((prev) => [...prev, IncommingMessage]);
   };
 
   const handleSend = () => {
-    if (message.trim()) {
-      const newMessage: Message = {
-        content: message.trim(),
-        timestamp: new Date().toISOString(),
-        user: "Client",
-      };
-    }
-
     client?.send(
       "/app/message",
       {},
       JSON.stringify({
-        content: message,
-        sender: "client",
+        content: message.trim(),
         date: new Date().toISOString(),
+        sender: currentUser,
       })
     );
 
@@ -116,7 +76,7 @@ export default function Chat() {
             <ChatMessage
               key={index}
               message={message}
-              side={currentUser === message.user ? "right" : "left"}
+              side={currentUser === message.sender ? "right" : "left"}
             />
           ))}
         </div>
