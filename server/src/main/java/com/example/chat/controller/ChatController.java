@@ -1,19 +1,24 @@
 package com.example.chat.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-
-import com.example.chat.model.Message;
 
 @Controller
 public class ChatController {
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/message")
-    @SendTo("/chatroom/public")
-    public Message handleMessage(@Payload Message message) {
-        return message;
+    public ChatController(SimpMessagingTemplate simpMessagingTemplate) {
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
+    @MessageMapping("/send/{room}")
+    public void sendMessageToRoom(@DestinationVariable String room,@Payload String message) {
+
+        simpMessagingTemplate.convertAndSend("/channel/" + room, message);
+    }
+    
 }

@@ -10,7 +10,11 @@ import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { Client, over } from "stompjs";
 
-export default function Chat() {
+interface ChatProps {
+  roomNumber: number;
+}
+
+export default function Chat({ roomNumber }: ChatProps) {
   const currentUser = useUserStore((state) => state.user);
   const [message, setMessage] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -24,11 +28,11 @@ export default function Chat() {
     setClient(client);
 
     client.connect({}, () => {
-      client.subscribe("/chatroom/public", (IncommingMessage) => {
+      client.subscribe("/channel/" + roomNumber, (IncommingMessage) => {
         handleSubscription(JSON.parse(IncommingMessage.body));
       });
     });
-  }, []);
+  }, [roomNumber]);
 
   const handleSubscription = (IncommingMessage: Message) => {
     setMessages((prev) => [...prev, IncommingMessage]);
@@ -36,7 +40,7 @@ export default function Chat() {
 
   const handleSend = () => {
     client?.send(
-      "/app/message",
+      "/app/send/" + roomNumber,
       {},
       JSON.stringify({
         content: message.trim(),
