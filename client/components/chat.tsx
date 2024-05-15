@@ -3,7 +3,7 @@
 import { ChatMessage } from "@/components/chat-message";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
-import { useUserStore } from "@/store/store";
+import { useSubscriptionStore, useUserStore } from "@/store/store";
 import { Message } from "@/types";
 import { Forward } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -20,6 +20,9 @@ export default function Chat({ roomNumber }: ChatProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [client, setClient] = useState<Client>();
   const [messages, setMessages] = useState<Message[]>([]);
+  const setSubscriptions = useSubscriptionStore(
+    (state) => state.setSubscriptions
+  );
 
   useEffect(() => {
     const s = new SockJS("http://localhost:8080/ws");
@@ -29,14 +32,16 @@ export default function Chat({ roomNumber }: ChatProps) {
 
     client.connect({}, () => {
       client.subscribe("/channel/" + roomNumber, (IncommingMessage) => {
-        handleSubscription(JSON.parse(IncommingMessage.body));
+        setMessages((prev) => [...prev, JSON.parse(IncommingMessage.body)]);
       });
+
+      client.subscribe("/channel/subscriptions", (IncommingMessage) => {
+        setSubscriptions(JSON.parse(IncommingMessage.body));
+      });
+
+      client.send("/app/subscribe/" + roomNumber, {});
     });
   }, [roomNumber]);
-
-  const handleSubscription = (IncommingMessage: Message) => {
-    setMessages((prev) => [...prev, IncommingMessage]);
-  };
 
   const handleSend = () => {
     client?.send(

@@ -3,3 +3,8 @@ export interface Message {
   content: string;
   date: string;
 }
+
+export interface Subscription {
+  room: "1" | "2" | "3";
+  subscribers: number;
+}
