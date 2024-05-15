@@ -13,7 +13,7 @@ This is a personal project built to learn Websockets and Spring Boot.
 ### Tech Stack
 
 - **Frontend Framework:** [Next.js](https://nextjs.org)
-- **Backend Framework:** [Spring Boot][https://nextjs.org](https://spring.io/projects/spring-boot)
+- **Backend Framework:** [Spring Boot](https://spring.io/projects/spring-boot)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
 - **UI Components:** [Shadcn/ui](https://ui.shadcn.com)
 - **Deployment:** [Vercel](https://vercel.com/)
