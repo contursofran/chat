@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(@NonNull MessageBrokerRegistry config) {
         config.enableSimpleBroker("/channel");
         // config.setApplicationDestinationPrefixes("/app");
-        config.setApplicationDestinationPrefixes("/app");
+      config.setApplicationDestinationPrefixes("/app");
 
     }
 
