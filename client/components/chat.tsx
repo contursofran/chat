@@ -14,6 +14,8 @@ interface ChatProps {
   roomNumber: number;
 }
 
+const apiUrl = "https://chat-l2wm.onrender.com/";
+
 export default function Chat({ roomNumber }: ChatProps) {
   const currentUser = useUserStore((state) => state.user);
   const [message, setMessage] = useState("");
@@ -25,7 +27,7 @@ export default function Chat({ roomNumber }: ChatProps) {
   );
 
   useEffect(() => {
-    const s = new SockJS("http://localhost:8080/ws");
+    const s = new SockJS(apiUrl + "ws");
     const client = over(s);
 
     setClient(client);
