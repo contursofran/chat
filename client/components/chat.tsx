@@ -14,7 +14,7 @@ interface ChatProps {
   roomNumber: number;
 }
 
-const apiUrl = "wss://chat-l2wm.onrender.com/";
+const apiUrl = "https://chat-l2wm.onrender.com/";
 
 export default function Chat({ roomNumber }: ChatProps) {
   const currentUser = useUserStore((state) => state.user);

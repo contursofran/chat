@@ -25,6 +25,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(@NonNull StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").setAllowedOrigins("https://chat-tau-sand-67.vercel.app/").withSockJS();
+        registry.addEndpoint("/ws").setAllowedOrigins("https://chat-tau-sand-67.vercel.app").withSockJS();
     }
 }
