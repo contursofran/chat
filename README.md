@@ -1,5 +1,5 @@
 <a href="https://app.code-library.pub">
-  <img alt="Platforms Starter Kit" src="public/thumbnail.png">
+  <img alt="Thumbnail" src="./thumbnail.png">
   <h1 align="center">Chat app</h1>
 </a>
 <p align="center">
