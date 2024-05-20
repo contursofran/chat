@@ -16,4 +16,4 @@ This is a personal project built to learn Websockets and Spring Boot.
 - **Backend Framework:** [Spring Boot](https://spring.io/projects/spring-boot)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
 - **UI Components:** [Shadcn/ui](https://ui.shadcn.com)
-- **Deployment:** [Vercel](https://vercel.com/)
+- **Deployment:** [Vercel](https://vercel.com/) and [Render](https://render.com)
